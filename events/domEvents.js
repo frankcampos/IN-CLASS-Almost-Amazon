@@ -17,7 +17,8 @@ const domEvents = () => {
         console.warn('CLICKED DELETE BOOK', e.target.id);
         const [, firebaseKey] = e.target.id.split('--');
 
-        deleteBook(firebaseKey).then(() => {
+        deleteBook(firebaseKey).then((data) => {
+          console.warn(data);
           getBooks().then(showBooks);
         });
       }

@@ -29,7 +29,7 @@ const showAuthors = (array) => {
         <i class="fas fa-edit"></i> Edit
       </button>
       <!-- Delete Button -->
-      <button class="btn btn-danger" id="delete-author-btn--${item.firebaseKey}">
+      <button class="btn btn-danger" id="delete-author-btn--${item.firebaseKey || item.name}">
         <i class="fas fa-trash-alt"></i> Delete
       </button>
     </div>
