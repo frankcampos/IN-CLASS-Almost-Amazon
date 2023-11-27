@@ -65,7 +65,7 @@ const updateAuthor = (payload) => new Promise((resolve, reject) => {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(payload) // Removed the semicolon here
+    body: JSON.stringify(payload)
   })
     .then((response) => response.json())
     .then((data) => resolve(data))
