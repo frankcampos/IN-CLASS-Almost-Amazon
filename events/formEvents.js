@@ -27,13 +27,11 @@ const formEvents = () => {
       };
 
       createAuthor(payload)
-        .then((data) => {
-          console.warn(data);
-          return getAuthors(); // Call getAuthors after logging the data
-        })
-        .then(showAuthors)
-        .catch((error) => {
-          console.error('An error occurred:', error);
+        .then(({ name }) => {
+          const patchPayload = { firebaseKey: name };
+          updateAuthor(patchPayload).then(() => {
+            getAuthors().then(showAuthors);
+          });
         });
     }
 
@@ -54,4 +52,5 @@ const formEvents = () => {
     }
   });
 };
+
 export default formEvents;
