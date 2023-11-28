@@ -6,7 +6,6 @@ import {
 import { showAuthors } from '../pages/authors';
 import addAuthorForm from '../components/forms/addAuthorForm';
 import addBookForm from '../components/forms/addBookForm';
-import selectAuthor from '../components/forms/selectAuthor';
 
 const domEvents = () => {
   document.querySelector('#main-container').addEventListener('click', (e) => {
@@ -28,13 +27,12 @@ const domEvents = () => {
     if (e.target.id.includes('add-book-btn')) {
       console.warn(e.target);
       addBookForm();
-      const firebaseKey = '-NjuHSqOTfy4JQpWge3T';
-      selectAuthor(firebaseKey);
     }
     // TODO: CLICK EVENT EDITING/UPDATING A BOOK
     if (e.target.id.includes('edit-book-btn')) {
-      console.warn('EDIT BOOK', e.target.id);
-      console.warn(e.target.id.split('--'));
+      const [, firebaseKey] = e.target.id.split('--');
+
+      getSingleBook(firebaseKey).then((bookObj) => addBookForm(bookObj));
     }
     // TODO: CLICK EVENT FOR VIEW BOOK DETAILS
     if (e.target.id.includes('view-book-btn')) {
