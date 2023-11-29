@@ -1,8 +1,8 @@
 import { signOut } from '../utils/auth';
-import { getBooks, booksOnSale } from '../api/bookData';
-import { showBooks } from '../pages/books';
+import { getBooks, booksOnSale, SearchBooks } from '../api/bookData';
+import { emptyBooks, showBooks } from '../pages/books';
 import { getAuthors } from '../api/authorData';
-import { showAuthors } from '../pages/authors';
+import { showAuthors } from '../pages/authors'; // emptyAuthors,
 
 // navigation events
 const navigationEvents = () => {
@@ -33,16 +33,26 @@ const navigationEvents = () => {
 
   // STRETCH: SEARCH
   document.querySelector('#search').addEventListener('keyup', (e) => {
-    const searchValue = document.querySelector('#search').value.toLowerCase();
-    console.warn(searchValue);
-
-    // WHEN THE USER PRESSES ENTER, MAKE THE API CALL AND CLEAR THE INPUT
     if (e.keyCode === 13) {
-      // MAKE A CALL TO THE API TO FILTER ON THE BOOKS
-      // IF THE SEARCH DOESN'T RETURN ANYTHING, SHOW THE EMPTY STORE
-      // OTHERWISE SHOW THE STORE
-
-      document.querySelector('#search').value = '';
+      const searchValue = document.querySelector('#search').value;
+      // console.warn(searchValue);
+      // console.warn(typeof searchValue);
+      SearchBooks(searchValue)
+        .then((data) => {
+          console.warn(data); // Corrected syntax
+          // Here, you might want to call showBooks(data) if you want to display the books
+          console.warn(typeof data);
+          showBooks(data);
+        })
+        .then(() => {
+          // Clear the input field after displaying the search results
+          document.querySelector('#search').value = '';
+        })
+        .catch((error) => {
+          console.error('Error:', error); // Added error handling
+        });
+    } else {
+      emptyBooks();
     }
   });
 };

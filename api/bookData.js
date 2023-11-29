@@ -86,6 +86,21 @@ const booksOnSale = () => new Promise((resolve, reject) => {
 });
 
 // TODO: STRETCH...SEARCH BOOKS
+const SearchBooks = (searchValue) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/books.json?orderBy="title"&equalTo="${searchValue}"`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => resolve(Object.values(data)))
+    .catch(reject);
+
+  // .then((response) => response.json())
+  // .then((data) => resolve(Object.values(data)))
+  // .catch(reject);
+});
 
 export {
   getBooks,
@@ -93,5 +108,6 @@ export {
   booksOnSale,
   deleteBook,
   getSingleBook,
-  updateBook
+  updateBook,
+  SearchBooks
 };
