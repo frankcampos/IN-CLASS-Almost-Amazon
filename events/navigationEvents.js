@@ -1,6 +1,6 @@
 import { signOut } from '../utils/auth';
 import { getBooks, booksOnSale, SearchBooks } from '../api/bookData';
-import { emptyBooks, showBooks } from '../pages/books';
+import { showBooks } from '../pages/books';
 import { getAuthors } from '../api/authorData';
 import { showAuthors } from '../pages/authors'; // emptyAuthors,
 
@@ -39,8 +39,7 @@ const navigationEvents = () => {
       // console.warn(typeof searchValue);
       SearchBooks(searchValue)
         .then((data) => {
-          console.warn(data); // Corrected syntax
-          // Here, you might want to call showBooks(data) if you want to display the books
+          console.warn(data);
           console.warn(typeof data);
           showBooks(data);
         })
@@ -51,8 +50,6 @@ const navigationEvents = () => {
         .catch((error) => {
           console.error('Error:', error); // Added error handling
         });
-    } else {
-      emptyBooks();
     }
   });
 };

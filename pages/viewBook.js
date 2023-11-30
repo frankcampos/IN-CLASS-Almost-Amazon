@@ -2,8 +2,9 @@ import clearDom from '../utils/clearDom';
 import renderToDOM from '../utils/renderToDom';
 
 const viewBook = (obj) => {
+  console.warn(obj);
+  console.warn(typeof obj);
   clearDom();
-
   const domString = `
   <div class="mt-5 d-flex flex-wrap">
    <div class="d-flex flex-column">
