@@ -1,11 +1,12 @@
 import { deleteBook, getBooks, getSingleBook } from '../api/bookData';
 import { showBooks } from '../pages/books';
-import {
-  deleteSingleAuthor, getAuthors, getSingleAuthor
-} from '../api/authorData';
+import { getAuthors, getSingleAuthor } from '../api/authorData';
 import { showAuthors } from '../pages/authors';
 import addAuthorForm from '../components/forms/addAuthorForm';
 import addBookForm from '../components/forms/addBookForm';
+import { getBookDetails, getAuthorDetails, deleteAuthorBooksRelationship } from '../api/mergedData';
+import viewBook from '../pages/viewBook';
+import viewauthor from '../pages/viewAuthors';
 
 const domEvents = () => {
   document.querySelector('#main-container').addEventListener('click', (e) => {
@@ -36,33 +37,24 @@ const domEvents = () => {
     }
     // TODO: CLICK EVENT FOR VIEW BOOK DETAILS
     if (e.target.id.includes('view-book-btn')) {
-      console.warn('VIEW BOOK', e.target.id);
       const [, firebaseKey] = e.target.id.split('--');
-      getSingleBook(firebaseKey).then((bookData) => {
-        const singlebook = [];
-        singlebook.push(bookData);
-        console.warn(singlebook);
-        showBooks(singlebook);
-      });
+
+      getBookDetails(firebaseKey).then(viewBook);
     }
     // TODO; click EVENT FOR VIew author details
     if (e.target.id.includes('view-author-btn')) {
       console.warn('VIEW author', e.target.id);
       const [, firebaseKey] = e.target.id.split('--');
-      getSingleAuthor(firebaseKey).then((authorData) => {
-        const singleAuthor = [];
-        singleAuthor.push(authorData);
-        showAuthors(singleAuthor);
-      });
+      getAuthorDetails(firebaseKey).then(viewauthor);
     }
 
     // FIXME: ADD CLICK EVENT FOR DELETING AN AUTHOR
     if (e.target.id.includes('delete-author-btn')) {
-    // eslint-disable-next-line no-alert
+      // eslint-disable-next-line no-alert
       if (window.confirm('Want to delete?')) {
-        console.warn('DELETE AUTHOR', e.target.id);
         const [, firebaseKey] = e.target.id.split('--');
-        deleteSingleAuthor(firebaseKey).then(() => {
+
+        deleteAuthorBooksRelationship(firebaseKey).then(() => {
           getAuthors().then(showAuthors);
         });
       }
