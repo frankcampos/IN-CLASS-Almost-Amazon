@@ -10,8 +10,8 @@ const viewBook = (obj) => {
    <div class="d-flex flex-column">
      <img src=${obj.image} alt=${obj.title} style="width: 300px;">
      <div class="mt-5">
-       <i id="edit-book-btn--${obj.firebaseKey}" class="fas fa-edit btn btn-info"></i>
-       <i id="delete-book--${obj.firebaseKey}" class="btn btn-danger fas fa-trash-alt"></i>
+       <i id="edit-book-btn--${obj.firebaseKey}" class="fas fa-edit" style="color: blue;"></i>
+       <i id="delete-book--${obj.firebaseKey}" class="fas fa-trash-alt" style="color: red;"></i>
      </div>
    </div>
    <div class="text-white ms-5 details">
