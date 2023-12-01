@@ -1,5 +1,7 @@
 import { signOut } from '../utils/auth';
-import { getBooks, booksOnSale, SearchBooks } from '../api/bookData';
+import {
+  getBooks, booksOnSale, searchBooks
+} from '../api/bookData';
 import { showBooks } from '../pages/books';
 import { getAuthors } from '../api/authorData';
 import { showAuthors } from '../pages/authors'; // emptyAuthors,
@@ -35,9 +37,7 @@ const navigationEvents = () => {
   document.querySelector('#search').addEventListener('keyup', (e) => {
     if (e.keyCode === 13) {
       const searchValue = document.querySelector('#search').value;
-      // console.warn(searchValue);
-      // console.warn(typeof searchValue);
-      SearchBooks(searchValue)
+      searchBooks(searchValue)
         .then((data) => {
           console.warn(data);
           console.warn(typeof data);

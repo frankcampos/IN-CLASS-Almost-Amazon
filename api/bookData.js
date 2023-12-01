@@ -9,11 +9,17 @@ const getBooks = () => new Promise((resolve, reject) => {
   fetch(`${endpoint}/books.json`, {
     method: 'GET',
     headers: {
-      'content-Type': 'application/json'
-    }
+      'Content-Type': 'application/json',
+    },
   })
     .then((response) => response.json())
-    .then((data) => resolve(Object.values(data)))
+    .then((data) => {
+      if (data) {
+        resolve(Object.values(data));
+      } else {
+        resolve([]);
+      }
+    })
     .catch(reject);
 });
 
@@ -86,21 +92,7 @@ const booksOnSale = () => new Promise((resolve, reject) => {
 });
 
 // TODO: STRETCH...SEARCH BOOKS
-const SearchBooks = (searchValue) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/books.json?orderBy="title"&equalTo="${searchValue}"`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => resolve(Object.values(data)))
-    .catch(reject);
-
-  // .then((response) => response.json())
-  // .then((data) => resolve(Object.values(data)))
-  // .catch(reject);
-});
+const searchBooks = (searchValue) => getBooks().then((bookArray) => bookArray.filter((book) => book.title.toLowerCase().includes(searchValue.toLowerCase())));
 
 export {
   getBooks,
@@ -109,5 +101,5 @@ export {
   deleteBook,
   getSingleBook,
   updateBook,
-  SearchBooks
+  searchBooks
 };
