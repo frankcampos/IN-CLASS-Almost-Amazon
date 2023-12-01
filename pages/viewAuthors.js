@@ -12,8 +12,8 @@ const viewauthor = (obj) => {
         <div class="book-details d-flex flex-column">
           <img src=${book.image} alt="${book.title}" style="width: 300px;">
           <div class="mt-5">
-            <i id="edit-book-btn--${book.firebaseKey}" class="fas fa-edit btn btn-info"></i>
-            <i id="delete-book--${book.firebaseKey}" class="btn btn-danger fas fa-trash-alt"></i>
+            <i id="edit-book-btn--${book.firebaseKey}" class="fas fa-edit" style="color: blue;" ></i>
+            <i id="delete-book--${book.firebaseKey}" class="fas fa-trash-alt" style="color: red";></i>
           </div>
         </div>
         <div class="author-details text-white ms-5">
