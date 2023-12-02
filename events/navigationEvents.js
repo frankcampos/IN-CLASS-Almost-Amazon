@@ -1,13 +1,13 @@
 import { signOut } from '../utils/auth';
 import {
-  getBooks, booksOnSale, searchBooks
+  getBooks, booksOnSale
 } from '../api/bookData';
 import { showBooks } from '../pages/books';
 import { getAuthors } from '../api/authorData';
 import { showAuthors } from '../pages/authors'; // emptyAuthors,
 
 // navigation events
-const navigationEvents = () => {
+const navigationEvents = (user) => {
   // LOGOUT BUTTON
   document.querySelector('#logout-button')
     .addEventListener('click', signOut);
@@ -15,13 +15,13 @@ const navigationEvents = () => {
   // TODO: BOOKS ON SALE
   document.querySelector('#sale-books').addEventListener('click', () => {
     console.warn('CLICKED SALE BOOKS');
-    booksOnSale().then(showBooks);
+    booksOnSale(user.uid).then(showBooks);
   });
 
   // TODO: ALL BOOKS
   document.querySelector('#all-books').addEventListener('click', () => {
     console.warn('CLICKED ALL BOOKS');
-    getBooks().then(showBooks);
+    getBooks(user.uid).then(showBooks);
   });
 
   // FIXME: STUDENTS Create an event listener for the Authors
@@ -30,11 +30,13 @@ const navigationEvents = () => {
   // 3. If the array is empty because there are no authors, make sure to use the emptyAuthor function
   document.querySelector('#authors').addEventListener('click', () => {
     console.warn('CLICKED AUTHORS');
-    getAuthors().then(showAuthors);
+    getAuthors(user.uid).then(showAuthors);
   });
 
   // STRETCH: SEARCH
   document.querySelector('#search').addEventListener('keyup', (e) => {
+    const searchBooks = (searchValue) => getBooks(user.uid).then((bookArray) => bookArray.filter((book) => book.title.toLowerCase().includes(searchValue.toLowerCase())));
+
     if (e.keyCode === 13) {
       const searchValue = document.querySelector('#search').value;
       searchBooks(searchValue)
