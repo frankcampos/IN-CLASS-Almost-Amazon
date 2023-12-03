@@ -16,10 +16,11 @@ const formEvents = (user) => {
         price: document.querySelector('#price').value,
         author_id: document.querySelector('#author_id').value,
         sale: document.querySelector('#sale').checked,
-
+        uid: user.uid
       };
 
       createBook(payload).then(({ name }) => {
+        console.warn('this createbook name', name);
         const patchPayload = { firebaseKey: name };
 
         updateBook(patchPayload).then(() => {
@@ -59,6 +60,7 @@ const formEvents = (user) => {
 
       createAuthor(payload)
         .then(({ name }) => {
+          console.warn('this is name', name);
           const patchPayload = { firebaseKey: name };
           updateAuthor(patchPayload).then(() => {
             getAuthors(user.uid).then(showAuthors);
